@@ -1,4 +1,4 @@
-package com.friska.math;
+package com.friska.math.test;
 
 import com.friska.math.linalg.Matrix;
 import com.friska.math.linalg.Vector;

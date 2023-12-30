@@ -1,4 +1,4 @@
-package com.friska.math;
+package com.friska.math.tools;
 
 public class NumberUtils {
     public static String format(float value){

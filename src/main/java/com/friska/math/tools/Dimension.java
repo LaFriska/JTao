@@ -1,2 +1,4 @@
-package com.friska.math.tools;public class Dimension {
+package com.friska.math.tools;
+
+public record Dimension() {
 }

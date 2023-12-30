@@ -1,4 +1,4 @@
-package exceptions;
+package com.friska.math.exceptions;
 
 public class IncompatibleMatrixException extends RuntimeException{
     public IncompatibleMatrixException(String msg){
