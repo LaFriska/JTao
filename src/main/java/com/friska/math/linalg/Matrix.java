@@ -4,7 +4,6 @@ import com.friska.math.tools.MatrixDimension;
 import com.friska.math.tools.NumberUtils;
 import com.friska.math.exceptions.IncompatibleMatrixException;
 
-import java.awt.*;
 import java.util.Arrays;
 
 public class Matrix {
@@ -68,7 +67,7 @@ public class Matrix {
         return dimension.col() == 1;
     }
 
-    public float getValue(int row, int col){
+    public float get(int row, int col){
         if(row >= dimension.row() || row < 0) throw new IncompatibleMatrixException("Row index of " + row + " is out of bounds.");
         if(col >= dimension.col() || col < 0) throw new IncompatibleMatrixException("Column index of " + col + " is out of bounds.");
         return state[row][col];
@@ -76,6 +75,7 @@ public class Matrix {
 
     //--------------------------OPERATIONS------------------------------//
 
+    @Deprecated
     public Matrix multiply(float scalar){
         float[][] newState = state.clone();
         for (int r = 0; r < dimension.row(); r++) {
@@ -86,10 +86,13 @@ public class Matrix {
         return new Matrix(newState);
     }
 
+    @Deprecated
     public Matrix multiply(int scalar){
         return multiply((float) scalar);
     }
 
+
+    @Deprecated
     public Vector multiply(Vector vector){
         if(dimension.col() != vector.getHeight()) throw new IncompatibleMatrixException("The vector's dimension must be equivalent to the matrix's column length.");
         float[][] clonedState = new float[dimension.row()][dimension.col()];
@@ -101,7 +104,8 @@ public class Matrix {
         return new Matrix(clonedState).combineColumns();
     }
 
-    private Vector combineColumns(){
+    @Deprecated
+    public Vector combineColumns(){
         float sum;
         float[] vec = new float[dimension.row()];
         for (int r = 0; r < dimension.row(); r++) {

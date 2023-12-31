@@ -21,6 +21,6 @@ public class Vector extends Matrix{
     }
 
     public float getValue(int row) {
-        return super.getValue(row, 0);
+        return super.get(row, 0);
     }
 }
