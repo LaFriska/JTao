@@ -1,8 +1,11 @@
 package com.friska.math.linalg;
 
 public class Vector extends Matrix{
+
+    private final int height;
     public Vector(float[] inputArray) {
         super(toMatrixState(inputArray));
+        height = getRowLength();
     }
 
     private static float[][] toMatrixState(float[] inputArray){
@@ -14,7 +17,7 @@ public class Vector extends Matrix{
     }
 
     public int getHeight(){
-        return getRowLength();
+        return height;
     }
 
     public float getValue(int row) {
