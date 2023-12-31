@@ -4,6 +4,7 @@ import com.friska.math.tools.MatrixDimension;
 import com.friska.math.tools.NumberUtils;
 import com.friska.math.exceptions.IncompatibleMatrixException;
 
+import java.awt.*;
 import java.util.Arrays;
 
 public class Matrix {
@@ -67,6 +68,12 @@ public class Matrix {
         return dimension.col() == 1;
     }
 
+    public float getValue(int row, int col){
+        if(row >= dimension.row() || row < 0) throw new IncompatibleMatrixException("Row index of " + row + " is out of bounds.");
+        if(col >= dimension.col() || col < 0) throw new IncompatibleMatrixException("Column index of " + col + " is out of bounds.");
+        return state[row][col];
+    }
+
     //--------------------------OPERATIONS------------------------------//
 
     public Matrix multiply(float scalar){
@@ -83,8 +90,32 @@ public class Matrix {
         return multiply((float) scalar);
     }
 
+    public Vector multiply(Vector vector){
+        if(dimension.col() != vector.getHeight()) throw new IncompatibleMatrixException("The vector's dimension must be equivalent to the matrix's column length.");
+        float[][] clonedState = new float[dimension.row()][dimension.col()];
+        for(int r = 0; r < dimension.row(); r++){
+            for(int c = 0; c < dimension.col(); c++){
+                clonedState[r][c] = state[r][c] * vector.getValue(c);
+            }
+        }
+        return new Matrix(clonedState).combineColumns();
+    }
+
+    private Vector combineColumns(){
+        float sum;
+        float[] vec = new float[dimension.row()];
+        for (int r = 0; r < dimension.row(); r++) {
+            sum = 0;
+            for (int c = 0; c < dimension.col(); c++) {
+                sum += state[r][c];
+            }
+            vec[r] = sum;
+        }
+        return new Vector(vec);
+    }
+
     public Vector getColumnVector(int columnIndex){
-        if(columnIndex >= dimension.col()) throw new IncompatibleMatrixException("Cannot extract column vector, as column index of " + columnIndex + " is out of bounds.");
+        if(columnIndex >= dimension.col() || columnIndex < 0) throw new IncompatibleMatrixException("Cannot extract column vector, as column index of " + columnIndex + " is out of bounds.");
         float[] vec = new float[dimension.row()];
         for(int r = 0; r < dimension.row(); r++){
             vec[r] = state[r][columnIndex];
@@ -93,7 +124,7 @@ public class Matrix {
     }
 
     public Matrix getRowVector(int rowIndex){
-        if(rowIndex >= dimension.row()) throw new IncompatibleMatrixException("Cannot extract row vector, as row index of " + rowIndex + " is out of bounds.");
+        if(rowIndex >= dimension.row() || rowIndex < 0) throw new IncompatibleMatrixException("Cannot extract row vector, as row index of " + rowIndex + " is out of bounds.");
         float[][] vec = new float[1][dimension.col()];
         vec[0] = state[rowIndex];
         return new Matrix(vec);

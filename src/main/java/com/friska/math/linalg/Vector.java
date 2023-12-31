@@ -13,7 +13,11 @@ public class Vector extends Matrix{
         return state;
     }
 
-    public int getLength(){
+    public int getHeight(){
         return getRowLength();
+    }
+
+    public float getValue(int row) {
+        return super.getValue(row, 0);
     }
 }
