@@ -1,5 +1,6 @@
 package com.friska.math.linalg;
 
+import com.friska.math.tools.MatrixDimension;
 import com.friska.math.tools.NumberUtils;
 import com.friska.math.exceptions.IncompatibleMatrixException;
 
@@ -8,7 +9,7 @@ import java.util.Arrays;
 public class Matrix {
 
     private final float[][] state;
-
+    private final MatrixDimension dimension;
 
 
     /**
@@ -19,6 +20,7 @@ public class Matrix {
         if(inputArray.length == 0) throw new IncompatibleMatrixException("The input array length must be greater than 0.");
         checkAndFill(inputArray);
         state = inputArray;
+        dimension = new MatrixDimension(state.length, state[0].length);
     }
 
     /**
@@ -41,17 +43,66 @@ public class Matrix {
         }
     }
 
+    public final MatrixDimension getDimension() {
+        return dimension;
+    }
+
+    public final int getRowLength(){
+        return dimension.row();
+    }
+
+    public final int getColLength(){
+        return dimension.col();
+    }
+
+    public final boolean isSquare(){
+        return dimension.row() == dimension.col();
+    }
+
+    public final boolean isHorizontalVector(){
+        return dimension.row() == 1;
+    }
+
+    public final boolean isVerticalVector(){
+        return dimension.col() == 1;
+    }
+
+    //--------------------------OPERATIONS------------------------------//
+
+    public Matrix multiply(float scalar){
+        float[][] newState = state.clone();
+        for (int r = 0; r < dimension.row(); r++) {
+            for (int c = 0; c < dimension.col(); c++) {
+                newState[r][c] = scalar * newState[r][c];
+            }
+        }
+        return new Matrix(newState);
+    }
+
+    public Matrix multiply(int scalar){
+        return multiply((float) scalar);
+    }
+
+    public Vector getColumnVector(int columnIndex){
+        float[] vec = new float[dimension.row()];
+        for(int r = 0; r < dimension.row(); r++){
+            vec[r] = state[r][columnIndex];
+        }
+        return new Vector(vec);
+    }
+
+
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(int r = 0; r < state.length; r++){
-            sb.append(r == 0 ? "⌈" : r == state.length - 1 ? "⌊" : "|");
-            for(int c = 0; c < state[0].length; c++){
+        for(int r = 0; r < dimension.row(); r++){
+            sb.append(dimension.row() > 1 ? (r == 0 ? "⌈" : r == dimension.row() - 1 ? "⌊" : "|") : "[");
+            for(int c = 0; c < dimension.col(); c++){
                 sb.append(NumberUtils.format(state[r][c]));
-                if(c != state[0].length - 1) sb.append(" ");
+                if(c != dimension.col() - 1) sb.append(" ");
             }
-            sb.append(r == 0 ? "⌉" : r == state.length - 1 ? "⌋" : "|").append("\n");
+            sb.append(dimension.row() > 1 ? (r == 0 ? "⌉" : r == dimension.row() - 1 ? "⌋" : "|") : "]").append("\n");
         }
         return sb.toString();
     }

@@ -12,4 +12,8 @@ public class Vector extends Matrix{
         }
         return state;
     }
+
+    public int getLength(){
+        return getRowLength();
+    }
 }
