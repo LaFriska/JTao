@@ -3,8 +3,9 @@ package com.friska.math.linalg;
 public class Vector extends Matrix{
 
     private final int height;
-    public Vector(float[] inputArray) {
-        super(toMatrixState(inputArray));
+
+    public Vector(float... inputs) {
+        super(toMatrixState(inputs));
         height = getRowLength();
     }
 
