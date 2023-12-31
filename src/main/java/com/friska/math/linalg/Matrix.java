@@ -84,6 +84,7 @@ public class Matrix {
     }
 
     public Vector getColumnVector(int columnIndex){
+        if(columnIndex >= dimension.col()) throw new IncompatibleMatrixException("Cannot extract column vector, as column index of " + columnIndex + " is out of bounds.");
         float[] vec = new float[dimension.row()];
         for(int r = 0; r < dimension.row(); r++){
             vec[r] = state[r][columnIndex];
@@ -92,6 +93,7 @@ public class Matrix {
     }
 
     public Matrix getRowVector(int rowIndex){
+        if(rowIndex >= dimension.row()) throw new IncompatibleMatrixException("Cannot extract row vector, as row index of " + rowIndex + " is out of bounds.");
         float[][] vec = new float[1][dimension.col()];
         vec[0] = state[rowIndex];
         return new Matrix(vec);
