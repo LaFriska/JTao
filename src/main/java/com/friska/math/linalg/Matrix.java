@@ -91,7 +91,11 @@ public class Matrix {
         return new Vector(vec);
     }
 
-
+    public Matrix getRowVector(int rowIndex){
+        float[][] vec = new float[1][dimension.col()];
+        vec[0] = state[rowIndex];
+        return new Matrix(vec);
+    }
 
     @Override
     public String toString() {
