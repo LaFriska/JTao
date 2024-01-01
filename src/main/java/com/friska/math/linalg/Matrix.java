@@ -98,7 +98,7 @@ public class Matrix {
         float[][] clonedState = new float[dimensions.row()][dimensions.col()];
         for(int r = 0; r < dimensions.row(); r++){
             for(int c = 0; c < dimensions.col(); c++){
-                clonedState[r][c] = state[r][c] * vector.getValue(c);
+                clonedState[r][c] = state[r][c] * vector.get(c);
             }
         }
         return new Matrix(clonedState).combineColumns();

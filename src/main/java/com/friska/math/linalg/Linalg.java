@@ -25,7 +25,7 @@ public class Linalg {
         float[][] newState = new float[matrix.getRowLength()][matrix.getColLength()];
         for(int r = 0; r < matrix.getRowLength(); r++){
             for(int c = 0; c < matrix.getColLength(); c++){
-                newState[r][c] = matrix.get(r, c) * vector.getValue(c);
+                newState[r][c] = matrix.get(r, c) * vector.get(c);
             }
         }
         return combineColumns(new Matrix(newState));
@@ -60,7 +60,7 @@ public class Linalg {
         for (int c = 0; c < vectors.length; c++) {
             if(vectors[c].getDimension() != vectors[1].getDimension()) throw new IncompatibleMatrixException("Cannot concatenate vectors of varying dimensions.");
             for (int r = 0; r < newState.length; r++) {
-                newState[r][c] = vectors[c].getValue(r);
+                newState[r][c] = vectors[c].get(r);
             }
         }
         return new Matrix(newState);

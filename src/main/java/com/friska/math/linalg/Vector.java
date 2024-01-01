@@ -21,7 +21,7 @@ public class Vector extends Matrix{
         return dimension;
     }
 
-    public float getValue(int row) {
+    public float get(int row) {
         return super.get(row, 0);
     }
 }
