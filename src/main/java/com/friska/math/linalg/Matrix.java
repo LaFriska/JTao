@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class Matrix {
 
     private final float[][] state;
-    private final MatrixDimension dimension;
+    private final MatrixDimension dimensions;
 
 
     /**
@@ -20,7 +20,7 @@ public class Matrix {
         if(inputArray.length == 0) throw new IncompatibleMatrixException("The input array length must be greater than 0.");
         checkAndFill(inputArray);
         state = inputArray;
-        dimension = new MatrixDimension(state.length, state[0].length);
+        dimensions = new MatrixDimension(state.length, state[0].length);
     }
 
     /**
@@ -43,33 +43,33 @@ public class Matrix {
         }
     }
 
-    public final MatrixDimension getDimension() {
-        return dimension;
+    public final MatrixDimension getDimensions() {
+        return dimensions;
     }
 
     public final int getRowLength(){
-        return dimension.row();
+        return dimensions.row();
     }
 
     public final int getColLength(){
-        return dimension.col();
+        return dimensions.col();
     }
 
     public final boolean isSquare(){
-        return dimension.row() == dimension.col();
+        return dimensions.row() == dimensions.col();
     }
 
     public final boolean isHorizontalVector(){
-        return dimension.row() == 1;
+        return dimensions.row() == 1;
     }
 
     public final boolean isVerticalVector(){
-        return dimension.col() == 1;
+        return dimensions.col() == 1;
     }
 
     public float get(int row, int col){
-        if(row >= dimension.row() || row < 0) throw new IncompatibleMatrixException("Row index of " + row + " is out of bounds.");
-        if(col >= dimension.col() || col < 0) throw new IncompatibleMatrixException("Column index of " + col + " is out of bounds.");
+        if(row >= dimensions.row() || row < 0) throw new IncompatibleMatrixException("Row index of " + row + " is out of bounds.");
+        if(col >= dimensions.col() || col < 0) throw new IncompatibleMatrixException("Column index of " + col + " is out of bounds.");
         return state[row][col];
     }
 
@@ -78,8 +78,8 @@ public class Matrix {
     @Deprecated
     public Matrix multiply(float scalar){
         float[][] newState = state.clone();
-        for (int r = 0; r < dimension.row(); r++) {
-            for (int c = 0; c < dimension.col(); c++) {
+        for (int r = 0; r < dimensions.row(); r++) {
+            for (int c = 0; c < dimensions.col(); c++) {
                 newState[r][c] = scalar * newState[r][c];
             }
         }
@@ -94,10 +94,10 @@ public class Matrix {
 
     @Deprecated
     public Vector multiply(Vector vector){
-        if(dimension.col() != vector.getHeight()) throw new IncompatibleMatrixException("The vector's dimension must be equivalent to the matrix's column length.");
-        float[][] clonedState = new float[dimension.row()][dimension.col()];
-        for(int r = 0; r < dimension.row(); r++){
-            for(int c = 0; c < dimension.col(); c++){
+        if(dimensions.col() != vector.getDimension()) throw new IncompatibleMatrixException("The vector's dimension must be equivalent to the matrix's column length.");
+        float[][] clonedState = new float[dimensions.row()][dimensions.col()];
+        for(int r = 0; r < dimensions.row(); r++){
+            for(int c = 0; c < dimensions.col(); c++){
                 clonedState[r][c] = state[r][c] * vector.getValue(c);
             }
         }
@@ -107,10 +107,10 @@ public class Matrix {
     @Deprecated
     public Vector combineColumns(){
         float sum;
-        float[] vec = new float[dimension.row()];
-        for (int r = 0; r < dimension.row(); r++) {
+        float[] vec = new float[dimensions.row()];
+        for (int r = 0; r < dimensions.row(); r++) {
             sum = 0;
-            for (int c = 0; c < dimension.col(); c++) {
+            for (int c = 0; c < dimensions.col(); c++) {
                 sum += state[r][c];
             }
             vec[r] = sum;
@@ -119,17 +119,17 @@ public class Matrix {
     }
 
     public Vector getColumnVector(int columnIndex){
-        if(columnIndex >= dimension.col() || columnIndex < 0) throw new IncompatibleMatrixException("Cannot extract column vector, as column index of " + columnIndex + " is out of bounds.");
-        float[] vec = new float[dimension.row()];
-        for(int r = 0; r < dimension.row(); r++){
+        if(columnIndex >= dimensions.col() || columnIndex < 0) throw new IncompatibleMatrixException("Cannot extract column vector, as column index of " + columnIndex + " is out of bounds.");
+        float[] vec = new float[dimensions.row()];
+        for(int r = 0; r < dimensions.row(); r++){
             vec[r] = state[r][columnIndex];
         }
         return new Vector(vec);
     }
 
     public Matrix getRowVector(int rowIndex){
-        if(rowIndex >= dimension.row() || rowIndex < 0) throw new IncompatibleMatrixException("Cannot extract row vector, as row index of " + rowIndex + " is out of bounds.");
-        float[][] vec = new float[1][dimension.col()];
+        if(rowIndex >= dimensions.row() || rowIndex < 0) throw new IncompatibleMatrixException("Cannot extract row vector, as row index of " + rowIndex + " is out of bounds.");
+        float[][] vec = new float[1][dimensions.col()];
         vec[0] = state[rowIndex];
         return new Matrix(vec);
     }
@@ -137,13 +137,13 @@ public class Matrix {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(int r = 0; r < dimension.row(); r++){
-            sb.append(dimension.row() > 1 ? (r == 0 ? "⌈" : r == dimension.row() - 1 ? "⌊" : "|") : "[");
-            for(int c = 0; c < dimension.col(); c++){
+        for(int r = 0; r < dimensions.row(); r++){
+            sb.append(dimensions.row() > 1 ? (r == 0 ? "⌈" : r == dimensions.row() - 1 ? "⌊" : "|") : "[");
+            for(int c = 0; c < dimensions.col(); c++){
                 sb.append(NumberUtils.format(state[r][c]));
-                if(c != dimension.col() - 1) sb.append(" ");
+                if(c != dimensions.col() - 1) sb.append(" ");
             }
-            sb.append(dimension.row() > 1 ? (r == 0 ? "⌉" : r == dimension.row() - 1 ? "⌋" : "|") : "]").append("\n");
+            sb.append(dimensions.row() > 1 ? (r == 0 ? "⌉" : r == dimensions.row() - 1 ? "⌋" : "|") : "]").append("\n");
         }
         return sb.toString();
     }

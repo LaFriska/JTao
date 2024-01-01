@@ -21,7 +21,7 @@ public class Linalg {
     }
     
     public static Vector multiply(@NotNull Matrix matrix, Vector vector){
-        if(matrix.getColLength() != vector.getHeight()) throw new IncompatibleMatrixException("The vector's dimension must be equivalent to the matrix's column length.");
+        if(matrix.getColLength() != vector.getDimension()) throw new IncompatibleMatrixException("The vector's dimension must be equivalent to the matrix's column length.");
         float[][] newState = new float[matrix.getRowLength()][matrix.getColLength()];
         for(int r = 0; r < matrix.getRowLength(); r++){
             for(int c = 0; c < matrix.getColLength(); c++){
@@ -55,9 +55,10 @@ public class Linalg {
 
     public static Matrix concatenateVectors(@NotNull Vector... vectors){
         if(vectors.length == 0) throw new IncompatibleMatrixException("Cannot concatenate vectors array of 0 length.");
-        float[][] newState = new float[vectors[0].getHeight()][vectors.length];
+        if(vectors.length == 1) return vectors[0];
+        float[][] newState = new float[vectors[0].getDimension()][vectors.length];
         for (int c = 0; c < vectors.length; c++) {
-            if(vectors[c].getHeight() != vectors[1].getHeight()) throw new IncompatibleMatrixException("Cannot concatenate vectors of varying dimensions.");
+            if(vectors[c].getDimension() != vectors[1].getDimension()) throw new IncompatibleMatrixException("Cannot concatenate vectors of varying dimensions.");
             for (int r = 0; r < newState.length; r++) {
                 newState[r][c] = vectors[c].getValue(r);
             }
