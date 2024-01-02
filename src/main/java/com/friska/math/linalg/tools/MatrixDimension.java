@@ -1,4 +1,4 @@
-package com.friska.math.tools;
+package com.friska.math.linalg.tools;
 
 
 /**

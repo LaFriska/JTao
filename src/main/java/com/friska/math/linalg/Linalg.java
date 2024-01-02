@@ -1,6 +1,6 @@
 package com.friska.math.linalg;
 
-import com.friska.math.exceptions.IncompatibleMatrixException;
+import com.friska.math.linalg.exceptions.IncompatibleMatrixException;
 import org.jetbrains.annotations.NotNull;
 
 public class Linalg {

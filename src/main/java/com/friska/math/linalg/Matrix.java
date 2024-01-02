@@ -1,8 +1,8 @@
 package com.friska.math.linalg;
 
-import com.friska.math.tools.MatrixDimension;
-import com.friska.math.tools.NumberUtils;
-import com.friska.math.exceptions.IncompatibleMatrixException;
+import com.friska.math.linalg.tools.MatrixDimension;
+import com.friska.math.linalg.tools.NumberUtils;
+import com.friska.math.linalg.exceptions.IncompatibleMatrixException;
 
 import java.util.Arrays;
 
