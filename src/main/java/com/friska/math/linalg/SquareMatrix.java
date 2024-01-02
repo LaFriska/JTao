@@ -11,6 +11,15 @@ public class SquareMatrix extends Matrix{
         dimension = getRowLength();
     }
 
+    public float getDeterminant(){
+        float sum = 0;
+        if(dimension == 1) return get(0,0);
+        for (int i = 0; i < dimension; i++) {
+            sum += (float) (get(0, i) * Math.pow(-1, i)) * getMinorMatrix(0, i).getDeterminant();
+        }
+        return sum;
+    }
+
     public SquareMatrix getMinorMatrix(int rowCoords, int colCoords){
         if(rowCoords >= dimension || colCoords >= dimension) throw new IndexOutOfBoundsException("Cannot process " + rowCoords + " and " + colCoords + " as coordinates for minor matrices.");
         if(dimension == 1) return null;
