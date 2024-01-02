@@ -83,51 +83,6 @@ public class Matrix {
         return getColumnVector(0);
     }
 
-    //--------------------------OPERATIONS------------------------------//
-
-    @Deprecated
-    public Matrix multiply(float scalar){
-        float[][] newState = state.clone();
-        for (int r = 0; r < dimensions.row(); r++) {
-            for (int c = 0; c < dimensions.col(); c++) {
-                newState[r][c] = scalar * newState[r][c];
-            }
-        }
-        return new Matrix(newState);
-    }
-
-    @Deprecated
-    public Matrix multiply(int scalar){
-        return multiply((float) scalar);
-    }
-
-
-    @Deprecated
-    public Vector multiply(Vector vector){
-        if(dimensions.col() != vector.getDimension()) throw new IncompatibleMatrixException("The vector's dimension must be equivalent to the matrix's column length.");
-        float[][] clonedState = new float[dimensions.row()][dimensions.col()];
-        for(int r = 0; r < dimensions.row(); r++){
-            for(int c = 0; c < dimensions.col(); c++){
-                clonedState[r][c] = state[r][c] * vector.get(c);
-            }
-        }
-        return new Matrix(clonedState).combineColumns();
-    }
-
-    @Deprecated
-    public Vector combineColumns(){
-        float sum;
-        float[] vec = new float[dimensions.row()];
-        for (int r = 0; r < dimensions.row(); r++) {
-            sum = 0;
-            for (int c = 0; c < dimensions.col(); c++) {
-                sum += state[r][c];
-            }
-            vec[r] = sum;
-        }
-        return new Vector(vec);
-    }
-
     public Vector getColumnVector(int columnIndex){
         if(columnIndex >= dimensions.col() || columnIndex < 0) throw new IncompatibleMatrixException("Cannot extract column vector, as column index of " + columnIndex + " is out of bounds.");
         float[] vec = new float[dimensions.row()];
