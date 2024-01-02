@@ -171,4 +171,24 @@ public class Matrix {
         }
         return sb.toString();
     }
+
+    public String getTex(String id){
+        StringBuilder rowString = new StringBuilder("\\begin{" + id + "}").append("\n");
+        for (int r = 0; r < dimensions.row(); r++) {
+            for (int c = 0; c < dimensions.col(); c++) {
+                rowString.append(NumberUtils.format(get(r, c))).append(c == dimensions.col() - 1 ?  r == dimensions.row() - 1 ? "" : "\\\\" : "&");
+            }
+            rowString.append("\n");
+        }
+        rowString.append("\\end{").append(id).append("}");
+        return rowString.toString();
+    }
+
+    public String getTex(){
+        return getTex("bmatrix");
+    }
+
+    public String getTexDeterminant(){
+        return getTex("vmatrix");
+    }
 }
