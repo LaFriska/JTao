@@ -1,6 +1,10 @@
 package com.friska.math.tools;
 
 public class NumberUtils {
+
+    /**
+     * Formats string representations of float values so that tailing 0s will be removed.
+     * **/
     public static String format(float value){
         if (value == (int) value) {
             return String.format("%d", (int) value);
