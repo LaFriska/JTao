@@ -73,6 +73,16 @@ public class Matrix {
         return state[row][col];
     }
 
+    public SquareMatrix toSquareMatrix(){
+        if(dimensions.row() != dimensions.col()) throw new IncompatibleMatrixException("Cannot convert a non-square matrix into a SquareMatrix object.");
+        return new SquareMatrix(state);
+    }
+
+    public Vector toVector(){
+        if(dimensions.col() != 1) throw new IncompatibleMatrixException("Cannot convert a matrix with more than 1 columns to a vector.");
+        return getColumnVector(0);
+    }
+
     //--------------------------OPERATIONS------------------------------//
 
     @Deprecated
