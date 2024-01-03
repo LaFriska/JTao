@@ -1,6 +1,7 @@
 package com.friska.math.questions;
 
 import com.friska.math.linalg.Matrix;
+import com.friska.math.linalg.Vector;
 import com.friska.math.linalg.tools.MatrixDimension;
 
 import java.awt.*;
@@ -33,6 +34,10 @@ public class QuestionUtil {
             }
         }
         return new Matrix(state);
+    }
+
+    public static Vector getRandomIntegerVector(int dimension, int lowerbound, int upperbound){
+        return getRandomIntegerMatrix(new MatrixDimension(dimension, 1), lowerbound, upperbound).toVector();
     }
 
     /**
