@@ -9,4 +9,8 @@ public record MatrixDimension(int row, int col) {
     public String toString() {
         return row + " x " + col;
     }
+
+    public static MatrixDimension get(int row, int col){
+        return new MatrixDimension(row, col);
+    }
 }
