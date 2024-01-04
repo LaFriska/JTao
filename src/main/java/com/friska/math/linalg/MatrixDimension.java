@@ -1,7 +1,5 @@
-package com.friska.math.linalg.tools;
+package com.friska.math.linalg;
 
-
-import com.friska.math.linalg.exceptions.IncompatibleMatrixException;
 
 /**
  * Representation of a matrix dimension, with an integer for row, and an integer for column sizes.

@@ -2,8 +2,8 @@ package com.friska.math.questions;
 
 import com.friska.math.linalg.Matrix;
 import com.friska.math.linalg.Vector;
-import com.friska.math.linalg.exceptions.IncompatibleMatrixException;
-import com.friska.math.linalg.tools.MatrixDimension;
+import com.friska.math.linalg.IncompatibleMatrixException;
+import com.friska.math.linalg.MatrixDimension;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;

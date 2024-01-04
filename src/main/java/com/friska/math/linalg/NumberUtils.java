@@ -1,4 +1,4 @@
-package com.friska.math.linalg.tools;
+package com.friska.math.linalg;
 
 public class NumberUtils {
 
