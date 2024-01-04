@@ -2,7 +2,10 @@ package com.friska.math.questions;
 
 import com.friska.math.linalg.Matrix;
 import com.friska.math.linalg.Vector;
+import com.friska.math.linalg.exceptions.IncompatibleMatrixException;
 import com.friska.math.linalg.tools.MatrixDimension;
+import org.jetbrains.annotations.NotNull;
+import org.scilab.forge.jlatexmath.InvalidMatrixException;
 
 import java.awt.*;
 import java.util.Random;
@@ -18,13 +21,13 @@ import java.util.Random;
 public class QuestionUtil {
 
     /**
-     * Generates a random matrix with integers.
+     * Generates a random matrix with integer entries.
      * @param dimension Dimension of the matrix, use the #getRandomMatrixDimension method to randomise the dimension.
      * @param lowerbound The lowerbound (inclusive) of randomised integer numbers for entries in the matrix.
      * @param upperbound The upperbound (inclusive) of randomised integer numbers for entries in the matrix.
      * @see #getRandomMatrixDimension
      * **/
-    public static Matrix getRandomIntegerMatrix(MatrixDimension dimension, int lowerbound, int upperbound){
+    public static @NotNull Matrix getRandomIntegerMatrix(@NotNull MatrixDimension dimension, int lowerbound, int upperbound){
         upperbound += 1;
         Random rand = new Random();
         float[][] state = new float[dimension.row()][dimension.col()];
@@ -36,14 +39,22 @@ public class QuestionUtil {
         return new Matrix(state);
     }
 
-    public static Vector getRandomIntegerVector(int dimension, int lowerbound, int upperbound){
+    /**
+     * Generates a random vector with integer entries.
+     * @param dimension The height of the vector. Since the vector's column length is always 1, only an integer is needed
+     *                  to represent its dimension.
+     * @param lowerbound The lowerbound (inclusive) of randomised integer numbers for entries in the vector.
+     * @param upperbound The upperbound (inclusive) of randomised integer numbers for entries in the vector.
+     * **/
+    public static @NotNull Vector getRandomIntegerVector(int dimension, int lowerbound, int upperbound){
+        if(dimension <= 0) throw new IncompatibleMatrixException("Cannot process a vector with a dimension less than 1");
         return getRandomIntegerMatrix(new MatrixDimension(dimension, 1), lowerbound, upperbound).toVector();
     }
 
     /**
      * Creates a random matrix dimension with given lower and upper bounds for both the width and height.
      * **/
-    public static MatrixDimension getRandomMatrixDimension(int rowLowerBound, int rowUpperBound, int colLowerBound, int colUpperBound){
+    public static @NotNull MatrixDimension getRandomMatrixDimension(int rowLowerBound, int rowUpperBound, int colLowerBound, int colUpperBound){
         rowUpperBound += 1;
         colUpperBound += 1;
         Random rand = new Random();
