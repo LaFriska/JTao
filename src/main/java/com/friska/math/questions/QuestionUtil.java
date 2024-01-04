@@ -5,9 +5,7 @@ import com.friska.math.linalg.Vector;
 import com.friska.math.linalg.exceptions.IncompatibleMatrixException;
 import com.friska.math.linalg.tools.MatrixDimension;
 import org.jetbrains.annotations.NotNull;
-import org.scilab.forge.jlatexmath.InvalidMatrixException;
 
-import java.awt.*;
 import java.util.Random;
 
 /**
