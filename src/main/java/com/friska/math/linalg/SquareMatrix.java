@@ -19,10 +19,9 @@ public class SquareMatrix extends Matrix{
 
     /**
      * Calculates and returns the determinant of the matrix. This method uses cofactor expansion; and thus, is computationally very
-     * expensive, as it recursively finds the determinants of minor matrices. Thus, this method will likely not work for square matrices
-     * of very high dimensions. As a way to save computing power, once this method successfully calculates the determinant, it will
-     * be stored as a global variable, which would be retrieved again next time this method is called, meaning that for every instance
-     * of SquareMatrix, the recursive algorithm will only need to be called once to get the determinant.
+     * intensive, as it recursively finds the determinants of minor matrices. Thus, this method will likely become intractable for square matrices
+     * of higher dimensions. As a way to save computing power, once this method successfully calculates the determinant, it will
+     * be memoized, meaning that for every instance of the SquareMatrix, the recursive algorithm will only need to be called once to compute the determinant.
      * **/
     public float getDeterminant(){
         if(determinant != null) return determinant;
