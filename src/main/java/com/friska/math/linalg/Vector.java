@@ -30,9 +30,15 @@ public class Vector extends Matrix{
      * Returns the dimension of the vector. In the case of a vector, a dimension could
      * be represented by just an integer, instead of two values.
      * **/
-    public int getDimension(){
+    public int getLength(){
         return dimension;
     }
+
+    /**
+     * Returns the dimension of the vector. In the case of a vector, a dimension could
+     * be represented by just an integer, instead of two values.
+     * **/
+    public int getDimension(){return dimension;}
 
     /**
      * Returns a value in the vector with a given row index.

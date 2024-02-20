@@ -2,7 +2,7 @@ package com.friska.math.linalg;
 
 import org.jetbrains.annotations.NotNull;
 
-public class Linalg {
+public class LinearAlgebra {
 
     //--------------Multiplication-----------------//
 
@@ -27,7 +27,7 @@ public class Linalg {
     }
     
     public static Vector multiply(@NotNull Matrix matrix, Vector vector){
-        if(matrix.getColLength() != vector.getDimension()) throw new IncompatibleMatrixException("The vector's dimension must be equivalent to the matrix's column length.");
+        if(matrix.getColLength() != vector.getLength()) throw new IncompatibleMatrixException("The vector's dimension must be equivalent to the matrix's column length.");
         float[][] newState = new float[matrix.getRowLength()][matrix.getColLength()];
         for(int r = 0; r < matrix.getRowLength(); r++){
             for(int c = 0; c < matrix.getColLength(); c++){
@@ -46,9 +46,10 @@ public class Linalg {
         for (int i = 0; i < vectors.length; i++) {
             vectors[i] = multiply(matrix, productMatrix.getColumnVector(i));
         }
-        return concatenateVectors(vectors);
+        return concatenate(vectors);
     }
 
+    //TODO use dot products instead
     /**
      * Takes the sum of every number in each row, and returns a vector as a result. This
      * is necessary for matrix-vector multiplication.
@@ -67,19 +68,36 @@ public class Linalg {
     }
 
     /**
-     * Takes an array of vectors, and concatenate them together forming a matrix,
-     * where each vector is considered a column vector, and combined to for a row of column vectors.
+     * Concatenates an array of vectors such that each vector becomes a column vector of
+     * an output matrix.
      * **/
-    public static Matrix concatenateVectors(@NotNull Vector... vectors){
-        if(vectors.length == 0) throw new IncompatibleMatrixException("Cannot concatenate vectors array of 0 length.");
+    public static Matrix concatenate(@NotNull Vector... vectors){
+        if(vectors.length == 0) throw new IncompatibleMatrixException("Cannot concatenate array with 0 vectors.");
         if(vectors.length == 1) return vectors[0];
-        float[][] newState = new float[vectors[0].getDimension()][vectors.length];
+        float[][] newState = new float[vectors[0].getLength()][vectors.length];
         for (int c = 0; c < vectors.length; c++) {
-            if(vectors[c].getDimension() != vectors[1].getDimension()) throw new IncompatibleMatrixException("Cannot concatenate vectors of varying dimensions.");
+            if(vectors[c].getLength() != vectors[1].getLength()) throw new IncompatibleMatrixException("Cannot concatenate vectors of varying dimensions.");
             for (int r = 0; r < newState.length; r++) {
                 newState[r][c] = vectors[c].get(r);
             }
         }
         return new Matrix(newState);
+    }
+
+    /**
+     * Concatenates a vector to a matrix such that the vector is appended at the end of the matrix.
+     * */
+    public static Matrix concatenate(@NotNull Matrix matrix, @NotNull Vector vector){
+        if(matrix.getRowLength() != vector.getLength()) throw new IncompatibleMatrixException("Cannot concatenate vector to a matrix of different height.");
+        float[][] stateCopy = new float[matrix.getRowLength()][matrix.getColLength() + 1];
+        for(int r = 0; r < matrix.getRowLength(); r++){
+            for(int c = 0; c < matrix.getColLength(); c++){
+                stateCopy[r][c] = matrix.get(r, c);
+            }
+        }
+        for(int r = 0; r < vector.getLength(); r++){
+            stateCopy[r][stateCopy[0].length - 1] = vector.get(r);
+        }
+        return new Matrix(stateCopy);
     }
 }

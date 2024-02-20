@@ -1,6 +1,6 @@
 package com.friska.math.questions;
 
-import com.friska.math.linalg.Linalg;
+import com.friska.math.linalg.LinearAlgebra;
 import com.friska.math.linalg.Matrix;
 import com.friska.math.linalg.Vector;
 
@@ -19,7 +19,7 @@ public class Questions {
     public static Question matrixVectorMultiplication(int lowestR, int largestR, int lowestC, int largestC, int lowlim, int upplim){
         Matrix mat = QuestionUtil.getRandomIntegerMatrix(QuestionUtil.getRandomMatrixDimension(lowestR, largestR, lowestC, largestC), lowlim, upplim);
         Vector vec = QuestionUtil.getRandomIntegerVector(mat.getColLength(), lowlim, upplim);
-        Matrix res = Linalg.multiply(mat, vec);
+        Matrix res = LinearAlgebra.multiply(mat, vec);
         return new Question(mat.getTex() + " " + vec.getTex(), res.getTex());
     }
 }

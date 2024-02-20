@@ -168,7 +168,7 @@ public class Matrix {
         return sb.toString();
     }
 
-    public String getTex(String id){
+    public String getTex(String id){ //TODO javadoc
         StringBuilder rowString = new StringBuilder("\\begin{" + id + "}").append("\n");
         for (int r = 0; r < dimensions.row(); r++) {
             for (int c = 0; c < dimensions.col(); c++) {
