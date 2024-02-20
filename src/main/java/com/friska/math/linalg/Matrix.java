@@ -187,4 +187,8 @@ public class Matrix {
     public String getTexDeterminant(){
         return getTex("vmatrix");
     }
+
+    protected float[][] getState() {
+        return state;
+    }
 }

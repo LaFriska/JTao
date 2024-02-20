@@ -15,6 +15,6 @@ public class AugmentedMatrix extends Matrix{
     *
     * */
     public AugmentedMatrix(Matrix coefficients, Vector constants) {
-        super(inputArray);
+        super(LinearAlgebra.concatenate(coefficients, constants).getState());
     }
 }
