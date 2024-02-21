@@ -143,6 +143,27 @@ public class Matrix {
         return new Matrix(state);
     }
 
+    /**
+     * With a specified row and column length, this method takes a float array of entries and
+     * formats it into a matrix. The procedure follows the way you would read a book (in a Western country),
+     * from left to right, top to down, where each element of the first row is input first, then each element of
+     * the second row, and so on.
+     *
+     * @throws IncompatibleMatrixException the row length multiplied by column length is not equal to the numbers of entries
+     * **/
+    public static Matrix formulate(int rowLength, int colLength, float... entries){
+        if(rowLength * colLength != entries.length) throw new IncompatibleMatrixException("Cannot format entries of length " + entries.length + " into a " + rowLength + " x " + colLength + " matrix.");
+        int count = 0;
+        float[][] state = new float[rowLength][colLength];
+        for(int r = 0; r < rowLength; r++){
+            for(int c = 0; c < colLength; c++){
+                state[r][c] = entries[count];
+                count++;
+            }
+        }
+        return new Matrix(state);
+    }
+
 
     /**
      * Represents the matrix as a string. This is mainly for testing purposes, where the matrix could be printed on
@@ -168,6 +189,11 @@ public class Matrix {
         return sb.toString();
     }
 
+    /**
+     * Returns the Tex string used to represent the matrix.
+     *
+     * @param id Signifies what type of brackets around the matrix is desired.
+     * **/
     public String getTex(String id){ //TODO javadoc
         StringBuilder rowString = new StringBuilder("\\begin{" + id + "}").append("\n");
         for (int r = 0; r < dimensions.row(); r++) {
@@ -180,14 +206,25 @@ public class Matrix {
         return rowString.toString();
     }
 
+
+    /**
+     * Returns the Tex string used to represent the matrix using conventional square brackets.
+     * */
     public String getTex(){
         return getTex("bmatrix");
     }
 
+    /**
+     * Returns the Tex string used to represent the matrix using vertical lines as brackets
+     * signifying the determinant.
+     * */
     public String getTexDeterminant(){
         return getTex("vmatrix");
     }
 
+    /**
+     * @return The state float array.
+     * */
     protected float[][] getState() {
         return state;
     }
