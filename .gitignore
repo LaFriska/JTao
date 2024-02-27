@@ -37,4 +37,4 @@ build/
 ### Mac OS ###
 .DS_Store
 
-/src/main/java/com/friska/math/test/
+/src/main/java/com/friska/jtao/test/

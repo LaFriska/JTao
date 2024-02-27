@@ -1,4 +1,4 @@
-package com.friska.math.frontend;
+package com.friska.jtao.frontend;
 
 import javax.swing.*;
 

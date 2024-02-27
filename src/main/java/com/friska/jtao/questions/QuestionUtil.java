@@ -1,9 +1,9 @@
-package com.friska.math.questions;
+package com.friska.jtao.questions;
 
-import com.friska.math.linalg.Matrix;
-import com.friska.math.linalg.Vector;
-import com.friska.math.linalg.IncompatibleMatrixException;
-import com.friska.math.linalg.MatrixDimension;
+import com.friska.jtao.linalg.Matrix;
+import com.friska.jtao.linalg.Vector;
+import com.friska.jtao.linalg.IncompatibleMatrixException;
+import com.friska.jtao.linalg.MatrixDimension;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;

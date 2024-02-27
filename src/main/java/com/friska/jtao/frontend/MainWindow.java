@@ -1,6 +1,6 @@
-package com.friska.math.frontend;
+package com.friska.jtao.frontend;
 
-import com.friska.math.questions.Questions;
+import com.friska.jtao.questions.Questions;
 
 import javax.swing.*;
 import java.awt.*;

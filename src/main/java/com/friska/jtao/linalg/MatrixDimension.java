@@ -1,4 +1,4 @@
-package com.friska.math.linalg;
+package com.friska.jtao.linalg;
 
 
 /**
