@@ -16,6 +16,7 @@ public class Matrix {
     public Matrix(float[][] inputArray){
         if(inputArray == null) throw new IncompatibleMatrixException("The input array must not be null.");
         if(inputArray.length == 0) throw new IncompatibleMatrixException("The input array length must be greater than 0.");
+        inputArray = arrayCopy(inputArray);
         checkAndFill(inputArray);
         state = inputArray;
         dimensions = new MatrixDimension(state.length, state[0].length);
@@ -39,6 +40,18 @@ public class Matrix {
                 inputArray[r] = Arrays.copyOf(inputArray[r], longestRow);
             }
         }
+    }
+
+    /**
+     * Clones the input array.
+     * */
+    private static float[][] arrayCopy(float[][] array){
+        float[][] res = new float[array.length][];
+        for (int r = 0; r < array.length; r++) {
+            res[r] = new float[array[r].length];
+            System.arraycopy(array[r], 0, res[r], 0, array[r].length);
+        }
+        return res;
     }
 
     /**
