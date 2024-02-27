@@ -1,4 +1,4 @@
-package com.friska.jtao.linalg;
+package com.friska.jtau.linalg;
 
 import java.util.Arrays;
 

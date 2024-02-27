@@ -1,4 +1,4 @@
-package com.friska.jtao.frontend;
+package com.friska.jtau.frontend;
 
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;

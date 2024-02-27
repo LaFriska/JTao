@@ -1,8 +1,8 @@
-package com.friska.jtao.questions;
+package com.friska.jtau.questions;
 
-import com.friska.jtao.linalg.LinearAlgebra;
-import com.friska.jtao.linalg.Matrix;
-import com.friska.jtao.linalg.Vector;
+import com.friska.jtau.linalg.LinearAlgebra;
+import com.friska.jtau.linalg.Matrix;
+import com.friska.jtau.linalg.Vector;
 
 public class Questions {
 

@@ -1,6 +1,6 @@
-package com.friska.jtao.frontend;
+package com.friska.jtau.frontend;
 
-import com.friska.jtao.questions.Questions;
+import com.friska.jtau.questions.Questions;
 
 import javax.swing.*;
 import java.awt.*;
