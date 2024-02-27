@@ -17,29 +17,34 @@ public class Matrix {
         if(inputArray == null) throw new IncompatibleMatrixException("The input array must not be null.");
         if(inputArray.length == 0) throw new IncompatibleMatrixException("The input array length must be greater than 0.");
         inputArray = arrayCopy(inputArray);
-        checkAndFill(inputArray);
+        check(inputArray);
         state = inputArray;
         dimensions = new MatrixDimension(state.length, state[0].length);
     }
 
     /**
-     * Checks to make sure that the input array into the matrix is a rectangle. If not, every row length is changed to match
-     * the longest row length in the input array, and the newly created slots are filled with 0s.
-     **/
-    private static void checkAndFill(float[][] inputArray){
-        boolean needModification = false;
-        int longestRow = inputArray[0].length;
+     * Ensures that every row in the input array have the same length, since a matrix must be rectangular.
+     * */
+    private static void check(float[][] inputArray){
         for(int r = 1; r < inputArray.length; r++){
-            if(inputArray[r].length != longestRow){
-                needModification = true;
-                if(inputArray[r].length > longestRow) longestRow = inputArray[r].length;
-            }
+            if(inputArray[r].length != inputArray[0].length) throw new IncompatibleMatrixException("Each row of the input array must have the same length.");
         }
-        if(needModification) for(int r = 0; r < inputArray.length; r++){
-            if(inputArray[r].length != longestRow){
-                inputArray[r] = Arrays.copyOf(inputArray[r], longestRow);
-            }
+    }
+
+
+    /**
+     * Takes in an input array such that each row has varying lengths, and pad rows that are too short with 0s. That way, this
+     * method can be called on the float array before parsing in a potentially ragged input array, to prevent IncompatibleMatrixException.
+     * */
+    public static float[][] pad(float[][] inputArray){
+        int longestLength = inputArray[0].length;
+        float[][] newArray = new float[inputArray.length][];
+        for(int r = 1; r < inputArray.length; r++)
+            if(inputArray[r].length > longestLength) longestLength = inputArray[r].length;
+        for(int r = 0; r < inputArray.length; r++){
+            newArray[r] = Arrays.copyOf(inputArray[r], longestLength);
         }
+        return newArray;
     }
 
     /**
