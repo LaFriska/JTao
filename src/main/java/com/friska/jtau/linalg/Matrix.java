@@ -200,11 +200,11 @@ public class Matrix {
     /**
      * Scans through entries of the matrix and returns true if the entries equate, and false if at least one entry is different.
      * */
-    public <M extends Matrix> boolean compare(M otherMatrix){
-        if((this.getRowLength() != otherMatrix.getRowLength()) || this.getColLength() != otherMatrix.getColLength()) return false;
-        for(int r = 0; r < this.getRowLength(); r++){
-            for(int c = 0; c < this.getColLength(); c++){
-                if(this.get(r, c) != otherMatrix.get(r, c)) return false;
+    public static <M extends Matrix> boolean compare(M matrix1, M matrix2){
+        if((matrix1.getRowLength() != matrix2.getRowLength()) || matrix1.getColLength() != matrix2.getColLength()) return false;
+        for(int r = 0; r < matrix1.getRowLength(); r++){
+            for(int c = 0; c < matrix1.getColLength(); c++){
+                if(matrix1.get(r, c) != matrix2.get(r, c)) return false;
             }
         }
         return true;

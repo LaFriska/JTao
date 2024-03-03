@@ -1,5 +1,7 @@
 package com.friska.jtau.linalg;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Vector extends Matrix{
 
     private final int dimension;
@@ -24,6 +26,10 @@ public class Vector extends Matrix{
             state[i][0] = inputArray[i];
         }
         return state;
+    }
+
+    public static Vector parse(@NotNull String s){
+        return Matrix.parse(s).toVector();
     }
 
     /**
