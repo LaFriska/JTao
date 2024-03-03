@@ -168,6 +168,18 @@ public class Matrix {
     }
 
     /**
+     * Creates and returns a new matrix object with the same float array. This method is mainly designed
+     * for classes that inherit the matrix class, that the user wants to parse into a matrix object.
+     * **/
+    public Matrix toMatrix(){
+        return new Matrix(state);
+    }
+
+    public AugmentedMatrix toAugmentedMatrix(){
+        return new AugmentedMatrix(state);
+    }
+
+    /**
      * Retrieves one column from the matrix and returns it as a vector. This is used in matrix multiplications, and more.
      * **/
     public Vector getColumnVector(int columnIndex){
@@ -187,14 +199,6 @@ public class Matrix {
         float[][] vec = new float[1][dimensions.col()];
         vec[0] = state[rowIndex];
         return new Matrix(vec);
-    }
-
-    /**
-     * Creates and returns a new matrix object with the same float array. This method is mainly designed
-     * for classes that inherit the matrix class, that the user wants to parse into a matrix object.
-     * **/
-    public Matrix toMatrix(){
-        return new Matrix(state);
     }
 
     /**
