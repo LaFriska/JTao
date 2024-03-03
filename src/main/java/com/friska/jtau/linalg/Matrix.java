@@ -1,5 +1,8 @@
 package com.friska.jtau.linalg;
 
+import com.friska.jtau.Utils;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 
 public class Matrix {
@@ -57,6 +60,39 @@ public class Matrix {
             System.arraycopy(array[r], 0, res[r], 0, array[r].length);
         }
         return res;
+    }
+
+    /**
+     * Creates a new matrix with String input, where each row is separated using commas, and columns are separated using semicolons.
+     * An example of this notation is as below:
+     * <p>
+     * "4, 2, 6, 3; 5, 2, 6, 2; 12, 13.5, 5, 2; 3, 5, 6, 2"
+     * <p>
+     * White space are ignored, but it is often nice to format a string like so:
+     * <p>
+     * "4, 2, 6, 3;<p>
+     * 5, 2, 6, 2; <p>
+     * 12, 13.5, 5, 2; <p>
+     * 3, 5, 6, 2"
+     * */
+    public static Matrix parse(@NotNull String s){
+        try{
+            String cleaned = Utils.removeWhitespace(s);
+            if(cleaned.isEmpty()) throw new IncompatibleMatrixException("Cannot parse an empty String into Matrix.");
+            String[] rowStrings = cleaned.split(";");
+            float[][] state = new float[rowStrings.length][];
+            String[] currentRow;
+            for (int r = 0; r < rowStrings.length; r++) {
+                currentRow = rowStrings[r].split(",");
+                state[r] = new float[currentRow.length];
+                for (int c = 0; c < currentRow.length; c++) {
+                    state[r][c] = Float.parseFloat(currentRow[c]);
+                }
+            }
+            return new Matrix(state);
+        }catch (NumberFormatException e){
+            throw new NumberFormatException("Error, cannot parse \"" + s +"\" into a matrix, make sure all entries are formatted correctly, and should be able to be parsed into the matrix as a float.");
+        }
     }
 
     /**
@@ -162,6 +198,20 @@ public class Matrix {
     }
 
     /**
+     * Scans through entries of the matrix and returns true if the entries equate, and false if at least one entry is different.
+     * */
+    public <M extends Matrix> boolean compare(M otherMatrix){
+        if((this.getRowLength() != otherMatrix.getRowLength()) || this.getColLength() != otherMatrix.getColLength()) return false;
+        for(int r = 0; r < this.getRowLength(); r++){
+            for(int c = 0; c < this.getColLength(); c++){
+                if(this.get(r, c) != otherMatrix.get(r, c)) return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
      * With a specified row and column length, this method takes a float array of entries and
      * formats it into a matrix. The procedure follows the way you would read a book (in a Western country),
      * from left to right, top to down, where each element of the first row is input first, then each element of
@@ -199,7 +249,7 @@ public class Matrix {
         for(int r = 0; r < dimensions.row(); r++){
             sb.append(dimensions.row() > 1 ? (r == 0 ? "⌈" : r == dimensions.row() - 1 ? "⌊" : "|") : "[");
             for(int c = 0; c < dimensions.col(); c++){
-                sb.append(NumberUtils.format(state[r][c]));
+                sb.append(Utils.format(state[r][c]));
                 if(c != dimensions.col() - 1) sb.append(" ");
             }
             sb.append(dimensions.row() > 1 ? (r == 0 ? "⌉" : r == dimensions.row() - 1 ? "⌋" : "|") : "]").append("\n");
@@ -216,7 +266,7 @@ public class Matrix {
         StringBuilder rowString = new StringBuilder("\\begin{" + id + "}").append("\n");
         for (int r = 0; r < dimensions.row(); r++) {
             for (int c = 0; c < dimensions.col(); c++) {
-                rowString.append(NumberUtils.format(get(r, c))).append(c == dimensions.col() - 1 ?  r == dimensions.row() - 1 ? "" : "\\\\" : "&");
+                rowString.append(Utils.format(get(r, c))).append(c == dimensions.col() - 1 ?  r == dimensions.row() - 1 ? "" : "\\\\" : "&");
             }
             rowString.append("\n");
         }

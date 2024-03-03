@@ -1,6 +1,8 @@
-package com.friska.jtau.linalg;
+package com.friska.jtau;
 
-public class NumberUtils {
+import org.jetbrains.annotations.NotNull;
+
+public class Utils {
 
     /**
      * Formats string representations of float values so that tailing 0s will be removed.
@@ -9,5 +11,12 @@ public class NumberUtils {
         return value == (int) value ?
                                     String.format("%d", (int) value)
                                   : String.format("%s", value);
+    }
+
+    /**
+     * Removes all white space
+     * */
+    public static String removeWhitespace(@NotNull String input) {
+        return input.replaceAll("\\s", "");
     }
 }

@@ -1,5 +1,12 @@
 package com.friska.jtau.linalg;
 
-public class LinearAlgebraTest {
+import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
+
+public class LinearAlgebraTest {
+    @Test
+    public void matrixVectorMult(){
+
+    }
 }
